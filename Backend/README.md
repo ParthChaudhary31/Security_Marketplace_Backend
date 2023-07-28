@@ -1,3 +1,4 @@
+# Security_Marketplace_Backend
 # Audit Bazaar Backend
 
 # Node.js Express Application
@@ -80,6 +81,7 @@ npm install
 |   ├── example.env
 |   ├── Dockerfile
 |   └── tsconfig.json
+├── AuditBazaarBackendArchitecture.docx
 └── docker-compose.yaml
 ```
 
