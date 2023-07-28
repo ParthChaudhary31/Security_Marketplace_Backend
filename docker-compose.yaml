@@ -1,0 +1,10 @@
+version: "2"
+services:
+  audit_bazaar_backend:
+    ports:
+      - '0.0.0.0:9000:9000'
+    container_name: audit_bazaar_backend
+    restart: always
+    build: ./Backend
+    environment:
+      - NODE_ENV=stage
