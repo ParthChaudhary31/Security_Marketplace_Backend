@@ -12,7 +12,14 @@ declare module "express" {
 function jwtValidate (request:Request,response:Response,next:NextFunction){
     const jwtToken: any = request.headers.authorization
     try {
-      const verify =  jwt.verify(jwtToken, request.body.emailAddress)
+      let token;
+      if (jwtToken) {
+         token = jwtToken.toLowerCase().startsWith("bearer")
+          ? jwtToken.slice("bearer".length).trim()
+          : jwtToken;
+      }
+      
+      const verify =  jwt.verify(token, request.body.emailAddress)
       request.user = verify
       next()
     } catch (err: any) {

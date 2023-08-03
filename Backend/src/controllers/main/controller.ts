@@ -20,7 +20,7 @@ class UserProfile {
         firstName: Joi.string().trim().required().pattern(/^[a-zA-Z!@#$%^&*]+$/).max(25).error(new Error("Please enter a valid first name")),
         lastName: Joi.string().trim().allow("").pattern(/^[a-zA-Z]+$/).max(25).error(new Error("Last Name validation failed")),
         password: Joi.string().trim().required().pattern(/^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,25}$/).error(new Error("Please enter a valid password")),
-        confirmPassword: Joi.string().trim().required().pattern(/^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,15}$/).error(new Error("Please enter a valid confirmed password")),
+        confirmPassword: Joi.string().trim().required().pattern(/^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,25}$/).error(new Error("Please enter a valid confirmed password")),
       });
       const { error } = schema.validate(req.body);
       // If validation fails, throw an error with the corresponding message.

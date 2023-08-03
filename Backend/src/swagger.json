@@ -11,7 +11,8 @@
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "name": "Token",
+        "bearerFormat":"JWT",
+        "name": "authorization",
         "in": "header",
         "description": "Jwt authentication to access wallet service"
       }
@@ -94,87 +95,12 @@
     "/api/v1/getUserInfo": {
       "post": {
         "tags": ["Get user info"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Get User Info",
-        "requestBody": {
-          "description": "",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "emailAddress": { "type": "string", "required": true },
-                  "password": { "type": "string", "required": "true" }
-                },
-                "example": {
-                  "emailAddress": "admin5678@gmail.com",
-                  "password": "qwertyuiop11"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "User Info fetched successfully"
-          },
-          "400": {
-            "description": "Please enter your credentials correctly"
-          }
-        }
-      }
-    },
-    "/api/v1/updateProfile": {
-      "post": {
-        "tags": ["Update user profile"],
-        "summary": "Update user profile",
-        "requestBody": {
-          "description": "",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "emailAddress": { "type": "string", "required": true },
-                  "wallerAddress": { "type": "string", "required": true },
-                  "firstName": { "type": "string", "required": true },
-                  "lastName": { "type": "string", "required": true },
-                  "gitHub": { "type": "string", "required": true },
-                  "linkedIn": { "type": "string", "required": true },
-                  "telegram": { "type": "string", "required": true },
-                  "bio": { "type": "string", "required": true },
-                  "profilePicture": { "type": "string", "required": true }
-                },
-                "example": {
-                  "emailAddress": "admin5678@gmail.com",
-                  "walletAddress": "5En7yhgG9E8vCrnyZMdxc7ToJdYqRyeCzfgjNXoAS8rkG16r",
-                  "firstName": "admin",
-                  "lastName": "sanju",
-                  "gitHub": "https://www.github.com/sanju",
-                  "linkedIn": "https://www.linkedin.com/sanju",
-                  "telegram": "",
-                  "bio": "5En7yhgG9E8vCrnyZMdxc7ToJdYqRyeCzfgjNXoAS8rkG16r",
-                  "profilePicture": ""
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Profile updated successfully"
-          },
-          "400": {
-            "description": "Please enter your credentials correctly"
-          }
-        }
-      }
-    },
-    "/api/v1/forgotPassword": {
-      "post": {
-        "tags": ["Forgot password"],
-        "summary": "Forgot password",
         "requestBody": {
           "description": "",
           "required": true,
@@ -194,7 +120,7 @@
         },
         "responses": {
           "200": {
-            "description": "got request successfully"
+            "description": "User Info fetched successfully"
           },
           "400": {
             "description": "Please enter your credentials correctly"
@@ -202,10 +128,15 @@
         }
       }
     },
-    "/api/v1/updatePassword": {
+    "/api/v1/updateProfile": {
       "post": {
-        "tags": ["Register audit"],
-        "summary": "Register Audit",
+        "tags": ["Update user profile"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Update user profile",
         "requestBody": {
           "description": "",
           "required": true,
@@ -215,21 +146,25 @@
                 "type": "object",
                 "properties": {
                   "emailAddress": { "type": "string", "required": true },
-                  "auditType": [{ "type": "string", "required": true }],
-                  "gitHub": { "type": "string", "required": true },
-                  "offerAmount": { "type": "number", "required": true },
-                  "estimatedDelivery": { "type": "string", "required": true },
-                  "description": { "type": "string", "required": true },
-                  "socialLink": { "type": "string", "required": true }
+                  "walletAddress": { "type": "string", "required": false },
+                  "firstName": { "type": "string", "required": true },
+                  "lastName": { "type": "string", "required": false },
+                  "gitHub": { "type": "string", "required": false },
+                  "linkedIn": { "type": "string", "required": false },
+                  "telegram": { "type": "string", "required": false },
+                  "bio": { "type": "string", "required": false },
+                  "profilePicture": { "type": "string", "required": false }
                 },
                 "example": {
                   "emailAddress": "admin5678@gmail.com",
-                  "auditType": ["smartContractAudit", "DoublePenetration"],
-                  "gitHub": "github.com",
-                  "offerAmount": 1,
-                  "estimatedDelivery": "05-10-2023",
-                  "description": "great project",
-                  "socialLink": "googlecom"
+                  "walletAddress": "",
+                  "firstName": "admin",
+                  "lastName": "",
+                  "gitHub": "",
+                  "linkedIn": "",
+                  "telegram": "",
+                  "bio": "",
+                  "profilePicture": ""
                 }
               }
             }
@@ -237,7 +172,52 @@
         },
         "responses": {
           "200": {
-            "description": "Audit register successfully"
+            "description": "Profile updated successfully"
+          },
+          "400": {
+            "description": "Please enter your credentials correctly"
+          }
+        }
+      }
+    },
+    "/api/v1/updatePassword": {
+      "post": {
+        "tags": ["Password Update"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Password Update",
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+
+
+
+                  "emailAddress": { "type": "string", "required": true },
+                  "oldPassword": [{ "type": "string", "required": true }],
+                  "newPassword": { "type": "string", "required": true },
+                  "confirmPassword": { "type": "string", "required": true }
+                },
+                "example": {
+                  "emailAddress":"",
+                  "oldPassword":"",
+                  "newPassword":"",
+                  "confirmPassword":""
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password updated successfully"
           },
           "400": {
             "description": "Please enter your credentials correctly"
@@ -248,6 +228,11 @@
     "/api/v1/updateAuditStatus": {
       "post": {
         "tags": ["Update audit status"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Update Audit Status",
         "requestBody": {
           "description": "",
@@ -283,6 +268,11 @@
     "/api/v1/updateAuditorID": {
       "post": {
         "tags": ["Update auditorID"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Update Auditor ID",
         "requestBody": {
           "description": "",
@@ -318,6 +308,11 @@
     "/api/v1/getDetailsOfAllAuditsPublic": {
       "post": {
         "tags": ["Get details of all audits public"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Get details of all public audits ",
         "requestBody": {
           "description": "",
@@ -349,6 +344,11 @@
     "/api/v1/getDetailsOfAllAudits": {
       "post": {
         "tags": ["Get details of all audits"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Get Details of all audits",
         "requestBody": {
           "description": "",
@@ -380,6 +380,11 @@
     "/api/v1/getDetailsOfAudit": {
       "post": {
         "tags": ["Get details of audit"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Get Details of audit",
         "requestBody": {
           "description": "",
@@ -403,68 +408,6 @@
         "responses": {
           "200": {
             "description": "Audit fetched successfully"
-          },
-          "400": {
-            "description": "Please enter your credentials correctly"
-          }
-        }
-      }
-    },
-    "/api/v1/twoFactorAuthentication": {
-      "post": {
-        "tags": ["Two factor authentication"],
-        "summary": "Two factor authentication",
-        "requestBody": {
-          "description": "",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "emailAddress": { "type": "string", "required": true }
-                },
-                "example": {
-                  "emailAddress": "admin5678@gmail.com"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "2FA successfully"
-          },
-          "400": {
-            "description": "Please enter your credentials correctly"
-          }
-        }
-      }
-    },
-    "/api/v1/verifytwoFactorAuthentication": {
-      "post": {
-        "tags": ["Verify Two factor authentication"],
-        "summary": "Verify Two factor authentication",
-        "requestBody": {
-          "description": "",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "emailAddress": { "type": "string", "required": true }
-                },
-                "example": {
-                  "emailAddress": "admin5678@gmail.com"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "2FA successfully"
           },
           "400": {
             "description": "Please enter your credentials correctly"

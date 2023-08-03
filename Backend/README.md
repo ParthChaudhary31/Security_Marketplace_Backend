@@ -71,6 +71,7 @@ npm install
 |   │   │   ├── posts.model.ts
 |   │   │   └── user.model.ts
 |   │   ├── test
+|   │   │   ├── config.ts
 |   │   │   └── userController.test.ts
 |   │   ├── utils
 |   │   │   └── message.ts
@@ -103,7 +104,8 @@ The developer mode will watch your changes then will transpile the TypeScript co
 ### Testing
 
 To run integration tests:
-
+The test cases will run successfully only for one time, If you want to re test the test cases, make sure you removed the data from your Database.
+You can also change the credentials in the config file in the test folder
 ```bash
 npx jest
 ```
