@@ -39,9 +39,9 @@
                   "confirmPassword": { "type": "string", "required": true }
                 },
                 "example": {
-                  "emailAddress": "áwerty@yopmail.com",
-                  "firstName": "dfuer",
-                  "lastName": "qwert",
+                  "emailAddress": "test@gmail.com",
+                  "firstName": "test",
+                  "lastName": "again",
                   "password": "Asdervf@12r",
                   "confirmPassword": "Asdervf@12r"
                 }
@@ -75,8 +75,8 @@
                   "password": { "type": "string", "required": "true" }
                 },
                 "example": {
-                  "emailAddress": "admin5678@gmail.com",
-                  "password": "qwertyuiop11"
+                  "emailAddress": "test@gmail.com",
+                  "password": "Asdervf@12r"
                 }
               }
             }
@@ -112,7 +112,7 @@
                   "emailAddress": { "type": "string", "required": true }
                 },
                 "example": {
-                  "emailAddress": "admin5678@gmail.com"
+                  "emailAddress": "test@gmail.com"
                 }
               }
             }
@@ -156,10 +156,10 @@
                   "profilePicture": { "type": "string", "required": false }
                 },
                 "example": {
-                  "emailAddress": "admin5678@gmail.com",
+                  "emailAddress": "test@gmail.com",
                   "walletAddress": "",
                   "firstName": "admin",
-                  "lastName": "",
+                  "lastName": "now",
                   "gitHub": "",
                   "linkedIn": "",
                   "telegram": "",
@@ -206,10 +206,10 @@
                   "confirmPassword": { "type": "string", "required": true }
                 },
                 "example": {
-                  "emailAddress":"",
-                  "oldPassword":"",
-                  "newPassword":"",
-                  "confirmPassword":""
+                  "emailAddress":"test@gmail.com",
+                  "oldPassword":"Asdervf@12r",
+                  "newPassword":"Zxcvbnm@123",
+                  "confirmPassword":"Zxcvbnm@123"
                 }
               }
             }
@@ -225,6 +225,55 @@
         }
       }
     },
+    "/api/v1/registerAudit": {
+      "post": {
+        "tags": ["Register Audit"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Register Audit",
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "emailAddress": { "type": "string", "required": true },
+                  "auditType": [{ "type": "string", "required": true }],
+                  "gitHub": { "type": "string", "required": true },
+                  "offerAmount": { "type": "number", "required": true },
+                  "estimatedDelivery": { "type": "string", "required": true },
+                  "description": { "type": "string", "required": true },
+                  "socialLink": { "type": "string", "required": true }
+                },
+                "example": {
+                  "emailAddress": "test@gmail.com",
+                  "auditType": ["Smart Contract Audit", "Penetration Testing"],
+                  "gitHub": "valid Gthub repo link",
+                  "offerAmount": 5,
+                  "estimatedDelivery": "DD/MM/YYYY",
+                  "description": "Describe you request",
+                  "socialLink": "any community channel would be fine"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Audit registered in successfully"
+          },
+          "400": {
+            "description": "Please enter your credentials correctly"
+          }
+        }
+      }
+    },
+
     "/api/v1/updateAuditStatus": {
       "post": {
         "tags": ["Update audit status"],
@@ -235,7 +284,7 @@
         ],
         "summary": "Update Audit Status",
         "requestBody": {
-          "description": "",
+          "description": "We need to retreive the post ID of an existing post which contains the status field PENDING or IN_PROGRESS. Status can be updated from PENDING -> IN_PROGRESS and IN_PROGRESS -> SUCCESS or IN_PROGRSS -> FAILED. Make sure you replace postID with 1",
           "required": true,
           "content": {
             "application/json": {
@@ -247,8 +296,8 @@
                   "status": { "type": "string", "required": true }
                 },
                 "example": {
-                  "emailAddress": "admin5678@gmail.com",
-                  "postID": "1",
+                  "emailAddress": "test@gmail.com",
+                  "postID": 1,
                   "status": "IN_PROGRESS"
                 }
               }
@@ -275,7 +324,7 @@
         ],
         "summary": "Update Auditor ID",
         "requestBody": {
-          "description": "",
+          "description": "We need to retreive the post ID of an existing post which contains the status field PENDING S. Auditor Email can be anyone's email who registered into the platform. We suggest to register a new user into the platform before hitting this API. Make sure you replace postID with 1",
           "required": true,
           "content": {
             "application/json": {
@@ -287,9 +336,9 @@
                   "auditorEmail": { "type": "string", "required": true }
                 },
                 "example": {
-                  "emailAddress": "admin5678@gmail.com",
-                  "postID": "5657",
-                  "auditorEmail": "admin@gmail.com"
+                  "emailAddress": "test@gmail.com",
+                  "postID": 1,
+                  "auditorEmail": "dummy@gmail.com"
                 }
               }
             }
@@ -315,7 +364,7 @@
         ],
         "summary": "Get details of all public audits ",
         "requestBody": {
-          "description": "",
+          "description": "Data response here can be visible globally.",
           "required": true,
           "content": {
             "application/json": {
@@ -325,7 +374,7 @@
                   "emailAddress": { "type": "string", "required": true }
                 },
                 "example": {
-                  "emailAddress": "admin5678@gmail.com"
+                  "emailAddress": "test@gmail.com"
                 }
               }
             }
@@ -333,7 +382,7 @@
         },
         "responses": {
           "200": {
-            "description": "All Public Audit fetched successfully"
+            "description": "All Public Audits fetched successfully"
           },
           "400": {
             "description": "Please enter your credentials correctly"
@@ -351,7 +400,7 @@
         ],
         "summary": "Get Details of all audits",
         "requestBody": {
-          "description": "",
+          "description": "Data response here is restricted to the user.",
           "required": true,
           "content": {
             "application/json": {
@@ -361,7 +410,7 @@
                   "emailAddress": { "type": "string", "required": true }
                 },
                 "example": {
-                  "emailAddress": "admin5678@gmail.com"
+                  "emailAddress": "test@gmail.com"
                 }
               }
             }
@@ -369,7 +418,7 @@
         },
         "responses": {
           "200": {
-            "description": "All Audit fetched successfully"
+            "description": "All Audits fetched successfully"
           },
           "400": {
             "description": "Please enter your credentials correctly"
@@ -387,7 +436,7 @@
         ],
         "summary": "Get Details of audit",
         "requestBody": {
-          "description": "",
+          "description": "Data response is restricted to a unique post ID",
           "required": true,
           "content": {
             "application/json": {
@@ -398,8 +447,8 @@
                   "postID": { "type": "string", "required": true }
                 },
                 "example": {
-                  "emailAddress": "admin5678@gmail.com",
-                  "postID": 5465
+                  "emailAddress": "test@gmail.com",
+                  "postID": 1
                 }
               }
             }

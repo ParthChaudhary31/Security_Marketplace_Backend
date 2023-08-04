@@ -235,7 +235,7 @@ describe('user Controller', () => {
   let obj2 = {
     emailAddress: "áweraaty@yopmail.com",
     postID: response1.body.data.response.postID,
-    auditorEmail: "áweraaty123@yopmail.com"
+    auditorEmail: "áwerty@yopmail.com"
   }
     let response12 = await request(Server.app)
       .post('/api/v1/updateAuditorID')
