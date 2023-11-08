@@ -59,17 +59,46 @@ const userModel = new mongoose.Schema(
       default: ""
     },
     password:{
-        type: String,
+      type: String,
       required:true,
     },
     twoFactorAuthentication:{
       type: String,
-      required:false
+      required:false,
+      default: ""
     },
     twoFactorAuthenticationStatus: {
       type: Boolean,
       required: true,
       default: false
+    },
+    invalidAttempt: {
+      type: Number,
+      required:false,
+      default:0,
+      validate: {
+        validator: (v: any) => v <= 2,
+        message: (props: any) => `${props?.value} is not a valid number`,
+      }
+    },
+    greyListedTimestamp: {
+      type: Number,
+      required: false,
+      default:0,
+    },
+    invalid2faAttempt: {
+      type: Number,
+      required:false,
+      default:0,
+      validate: {
+        validator: (v: any) => v <= 2,
+        message: (props: any) => `${props?.value} is not a valid number`,
+      }
+    },
+    greyListed2faTimestamp: {
+      type: Number,
+      required: false,
+      default:0,
     }
   },
   { timestamps: true, versionKey: false }

@@ -3,12 +3,13 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import compression from "compression";
 import cors from "cors";
-import router from "../src/router";
+import router from "./router";
 import dbConnect from "./helpers/db.helper";
+import path from "path";
 dotenv.config();
 
 const swaggerui = require("swagger-ui-express");
-const swaggerdoc = require("./swagger.json");
+const swaggerdoc = require("../swagger.json");
 
 class ExpressServer {
   public app: Application;
@@ -22,7 +23,12 @@ class ExpressServer {
     dbConnect.dbConnection();
     this.initialiseServices();
     this.initialiseRouter();
-
+    this.app.use("/uploaded/images",
+      express.static(path.join(__dirname, "/../public/uploads"))
+    );
+    this.app.use("/uploaded/submits",
+    express.static(path.join(__dirname, "/../public/reports"))
+  );
   }
 
   private initialiseRouter() {

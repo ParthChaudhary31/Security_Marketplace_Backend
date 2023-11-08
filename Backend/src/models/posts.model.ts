@@ -1,4 +1,25 @@
 import mongoose from "mongoose";
+const arbitersList = new mongoose.Schema({
+  arbiter: {
+    type: String,
+    required: true,
+  },
+  vote: {
+    type: Boolean,
+    default: false,
+  },
+  voteType: {
+    type: Number,
+    enum: [
+      1,
+      2,
+      3,
+      4
+    ],
+    default: 0,
+  },
+});
+
 const postsModel = new mongoose.Schema(
   {
     emailAddress: {
@@ -8,49 +29,113 @@ const postsModel = new mongoose.Schema(
     status: {
       type: String,
       required: true,
-      enum: ["PENDING", "IN_PROGRESS", "SUCCESS", "FAILED"],
-      default:"PENDING",
+      enum: [
+        "PRE_REGISTERATION",
+        "PENDING",
+        "IN_PROGRESS",
+        "SUBMITTED",
+        "UNDER_ARBITERATION",
+        "COMPLETED",
+        "FAILED",
+      ],
+      default: "PRE_REGISTERATION",
     },
-    auditType:[{
-      type: String,
-      requred: false,
-      default: ""
-    }],
+    auditType: [
+      {
+        type: String,
+        requred: false,
+        default: "",
+      },
+    ],
     gitHub: {
       type: String,
-      required:true,
-      default: ""
+      required: true,
+      default: "",
     },
     offerAmount: {
-        type: Number,
-        required: true,
-        default: 0
+      type: Number,
+      required: true,
+      default: 0,
     },
     postID: {
-        type: Number,
-        requred: true,
-        unique:true
+      type: Number,
+      requred: true,
+      unique: true,
     },
     estimatedDelivery: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     description: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     socialLink: {
       type: String,
       required: false,
-      default: ""
+      default: "",
     },
     auditorEmail: {
       type: String,
       required: false,
-      default: ""
-    } 
+      default: "",
+    },
+    submit: [{
+      type: String,
+      required: false,
+      default: "",
+    }],
+    reason: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    txHash: {
+      type: String,
+      default: "",
+    },
+    salt: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
+    currentAuditId: {
+      type: Number,
+      required: false,
+    },
+    extensionRequest: {
+      type: Boolean,
+      require: true,
+      default: false,
+    },
+    new: {
+      type: Boolean,
+      require: true,
+      default: false,
+    },
+    arbitersList: {
+      type: [arbitersList],
+      required: false,
+      default: [],
+    },
+    timeOfArb: {
+      type: Number,
+      default: 0,
+    },
+    voteCount: {
+      type: Number,
+      default: 0,
+    },
+    voteID: {
+      type: Number,
+      default: 0,
+    },
+    totalRewardForArbiters: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true, versionKey: false }
 );

@@ -1,0 +1,297 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Auditbazar",
+    "description": "Auditbazar APIs",
+    "version": "1.0.0"
+  },
+  "produces": ["application/json"],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "name": "Token",
+        "in": "header",
+        "description": "Jwt authentication to access wallet service"
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/api/v1/register": {
+      "post": {
+        "tags": ["Register User"],
+        "summary": "Register User",
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "emailAddress": { "type": "string", "required": true },
+                  "firstName": { "type": "string", "required": true },
+                  "lastName": { "type": "string", "required": true },
+                  "password": { "type": "string", "required": true },
+                  "confirmPassword": { "type": "string", "required": true }
+                },
+                "example": {
+                  "emailAddress": "áwerty@yopmail.com",
+                  "firstName": "dfuer",
+                  "lastName": "qwert",
+                  "password": "Asdervf@12r",
+                  "confirmPassword": "Asdervf@12r"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User Register Successfully"
+          },
+          "400": {
+            "description": "Please enter your credentials correctly"
+          }
+        }
+      }
+    },
+    "/api/v1/login": {
+      "post": {
+        "tags": ["Login"],
+        "summary": "Login User",
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "emailAddress": { "type": "string", "required": true },
+                  "password": { "type": "string", "required": "true" }
+                },
+                "example": {
+                  "emailAddress": "áwerty@yopmail.com",
+                  "password": "Asdervf@12r"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User Logged in successfully"
+          },
+          "400": {
+            "description": "Please enter your credentials correctly"
+          }
+        }
+      }
+    },
+    "/api/v1/getUserInfo": {
+      "post": {
+        "tags": ["Get user info"],
+        "summary": "Get User Info",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "emailAddress": { "type": "string", "required": true }
+                },
+                "example": {
+                  "emailAddress": "áwerty@yopmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User Info fetched successfully"
+          },
+          "400": {
+            "description": "Please enter your credentials correctly"
+          }
+        }
+      }
+    },
+    "/api/v1/updateProfile": {
+      "post": {
+        "tags": ["Update user profile"],
+        "summary": "Update user profile",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "emailAddress": { "type": "string", "required": true },
+                  "wallerAddress": { "type": "string", "required": true },
+                  "firstName": { "type": "string", "required": true },
+                  "lastName": { "type": "string", "required": true },
+                  "gitHub": { "type": "string", "required": true },
+                  "linkedIn": { "type": "string", "required": true },
+                  "telegram": { "type": "string", "required": true },
+                  "bio": { "type": "string", "required": true },
+                  "profilePicture": { "type": "string", "required": true }
+                },
+                "example": {
+                  "emailAddress": "áwerty@yopmail.com",
+                  "walletAddress": "5En7yhgG9E8vCrnyZMdxc7ToJdYqRyeCzfgjNXoAS8rkG16r",
+                  "firstName": "admin",
+                  "lastName": "sanju",
+                  "gitHub": "https://www.github.com/sanju",
+                  "linkedIn": "https://www.linkedin.com/sanju",
+                  "telegram": "",
+                  "bio": "5En7yhgG9E8vCrnyZMdxc7ToJdYqRyeCzfgjNXoAS8rkG16r",
+                  "profilePicture": ""
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Profile updated successfully"
+          },
+          "400": {
+            "description": "Please enter your credentials correctly"
+          }
+        }
+      }
+    },
+    "/api/v1/updatePassword": {
+      "post": {
+        "tags": ["Update Password"],
+        "summary": "Update Password",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "emailAddress": { "type": "string", "required": true },
+                  "oldPassword": { "type": "string", "required": true },
+                  "newPassword": { "type": "string", "required": true },
+                  "confirmPassword": { "type": "string", "required": true }
+                },
+                "example": {
+                  "emailAddress": "áwerty@yopmail.com",
+                  "oldPassword": "Asdervf@12r",
+                  "newPassword": "Asdervf@12rt",
+                  "confirmPassword": "Asdervf@12rt"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Audit register successfully"
+          },
+          "400": {
+            "description": "Please enter your credentials correctly"
+          }
+        }
+      }
+    },
+    "/api/v1/twoFactorAuthentication": {
+      "post": {
+        "tags": ["Two factor authentication"],
+        "summary": "Two factor authentication",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "emailAddress": { "type": "string", "required": true }
+                },
+                "example": {
+                  "emailAddress": "áwerty@yopmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "2FA successfully"
+          },
+          "400": {
+            "description": "Please enter your credentials correctly"
+          }
+        }
+      }
+    },
+    "/api/v1/verifytwoFactorAuthentication": {
+      "post": {
+        "tags": ["Verify Two factor authentication"],
+        "summary": "Verify Two factor authentication",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "emailAddress": { "type": "string", "required": true }
+                },
+                "example": {
+                  "emailAddress": "áwerty@yopmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "2FA successfully"
+          },
+          "400": {
+            "description": "Please enter your credentials correctly"
+          }
+        }
+      }
+    }
+  }
+}

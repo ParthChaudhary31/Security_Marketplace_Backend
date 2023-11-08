@@ -35,13 +35,6 @@ const config = {
     password: "Asdervf@12r",
     confirmPassword: "Asdervf@12r"
   },
-  REGISTER_PAYLOAD_CASE_6:{
-    emailAddress: "áwerty@yopmail.com",
-    firstName: "dffrehghfhf",
-    lastName: "qwertyy",
-    password:"Asdervf@@@123456",
-    confirmPassword:"Asdervf@@@123456"
-  },
   LOGIN_PAYLOAD_CASE_1:{
     emailAddress: "áweraaty@yopmail.com",
     password: "Asdervf@12r"
@@ -61,10 +54,6 @@ const config = {
   LOGIN_PAYLOAD_CASE_5:{
     emailAddress: "áwe1rty@yopmail.com",
     password: "Asdervf@12r"
-  },
-  LOGIN_PAYLOAD_CASE_6:{
-    emailAddress: "áwerty@yopmail.com",
-    password:"Asdervf@@@123456"
   },
   UPDATE_PROFILE_PAYLOAD_CASE_1:{
     emailAddress: "áweraaty@yopmail.com",
@@ -101,10 +90,6 @@ const config = {
     emailAddress: "áweraaty@yopmail.com",
     postID: 67974,
     auditorEmail: "áweraaty@yopmail.com"
-  },
-  NEW_LOGIN_CRED_PAYLOAD_CASE_1:{
-    emailAddress: "áweraaty@yopmail.com",
-    password: "Asdervf@@@123456"
   },
   GET_DETAILS_AUDIT_CASE_1:{
     emailAddress: "áweraaty@yopmail.com",
